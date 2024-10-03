@@ -1,9 +1,8 @@
 "use client";
 
+import { useTripStore } from "@/hooks/use-trip-store";
 import { formatDateRange } from "@/lib/format-date-range";
 import { format } from "date-fns";
-import { useState } from "react";
-import type { DateRange } from "react-day-picker";
 import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export function TripDatePicker({ disabled }: Props) {
-  const [date, setDate] = useState<DateRange | undefined>();
+  const { date, setDate } = useTripStore();
 
   return (
     <div className="grid gap-2">

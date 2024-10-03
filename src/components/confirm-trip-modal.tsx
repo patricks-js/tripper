@@ -1,3 +1,5 @@
+import { useTripStore } from "@/hooks/use-trip-store";
+import { formatDateRange } from "@/lib/format-date-range";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
@@ -17,8 +19,6 @@ import { Input } from "./ui/input";
 
 type Props = {
   children: ReactNode;
-  destination: string;
-  date: string;
   isOwner?: boolean;
 };
 
@@ -30,6 +30,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export function ConfirmTripModal({ isOwner = false, ...props }: Props) {
+  const { destination, date, inviteesEmails } = useTripStore();
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,7 +41,12 @@ export function ConfirmTripModal({ isOwner = false, ...props }: Props) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log({
+      ...values,
+      destination,
+      date,
+      inviteesEmails,
+    });
   }
 
   return (
@@ -47,9 +54,15 @@ export function ConfirmTripModal({ isOwner = false, ...props }: Props) {
       <DialogTrigger>{props.children}</DialogTrigger>
       <DialogContent>
         {isOwner ? (
-          <ModalHeaderOwner destination={props.destination} date={props.date} />
+          <ModalHeaderOwner
+            destination={destination}
+            date={formatDateRange(date)}
+          />
         ) : (
-          <ModalHeaderGuest destination={props.destination} date={props.date} />
+          <ModalHeaderGuest
+            destination={destination}
+            date={formatDateRange(date)}
+          />
         )}
         <Form {...form}>
           <form
@@ -108,7 +121,7 @@ export function ConfirmTripModal({ isOwner = false, ...props }: Props) {
 
 type ModalHeaderProps = {
   destination: string;
-  date: string;
+  date?: string;
 };
 
 export function ModalHeaderOwner({ destination, date }: ModalHeaderProps) {

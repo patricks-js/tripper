@@ -1,9 +1,11 @@
 "use client";
 
+import { useTripStore } from "@/hooks/use-trip-store";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { ConfirmTripModal } from "./confirm-trip-modal";
+import { FieldWrapper } from "./field-wrapper";
 import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import {
@@ -23,15 +25,8 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-type Props = {
-  children: ReactNode;
-};
-
-export function SelectInvitees(props: Props) {
-  const [inviteesEmails, setInviteesEmails] = useState<string[]>([
-    "patrick@email.com",
-    "joao@email.com",
-  ]);
+export function SelectInviteesModal() {
+  const { inviteesEmails, setInviteesEmails } = useTripStore();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -51,7 +46,23 @@ export function SelectInvitees(props: Props) {
 
   return (
     <Dialog>
-      <DialogTrigger>{props.children}</DialogTrigger>
+      <FieldWrapper>
+        <DialogTrigger className="flex-1">
+          <div className="flex items-center gap-2 text-sm">
+            <Icons.addUser className="size-4 text-muted-foreground" />
+            {inviteesEmails.length > 0 ? (
+              <p>{inviteesEmails.length} convidados</p>
+            ) : (
+              <p className="text-muted-foreground">Quem vai estar na viagem?</p>
+            )}
+          </div>
+        </DialogTrigger>
+        <ConfirmTripModal>
+          <Button size="sm" className="gap-2">
+            Confirmar viagem <Icons.arrowRight className="size-4" />
+          </Button>
+        </ConfirmTripModal>
+      </FieldWrapper>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Selecionar convidados</DialogTitle>
@@ -79,7 +90,7 @@ export function SelectInvitees(props: Props) {
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-            <div className="h-12 flex items-center px-4 shadow-shape rounded-md bg-secondary gap-2 w-full">
+            <FieldWrapper>
               <FormField
                 control={form.control}
                 name="email"
@@ -99,10 +110,10 @@ export function SelectInvitees(props: Props) {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="gap-2">
+              <Button type="submit" size="sm" className="gap-2">
                 Convidar <Icons.plus className="size-4" />
               </Button>
-            </div>
+            </FieldWrapper>
           </form>
         </Form>
       </DialogContent>
