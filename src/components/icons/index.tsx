@@ -1,4 +1,5 @@
 import {
+  ArrowLeft,
   ArrowRight,
   AtSign,
   Calendar,
@@ -11,6 +12,7 @@ import {
 export const Icons = {
   location: MapPin,
   arrowRight: ArrowRight,
+  arrowLeft: ArrowLeft,
   calendar: Calendar,
   addUser: UserPlus,
   settings: Settings2,
