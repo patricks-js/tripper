@@ -1,3 +1,4 @@
+import { CreateTripForm } from "@/components/create-trip-form";
 import { TermsAndPolicies } from "@/components/terms-and-policies";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
             Convide seus amigos e planeje sua próxima viagem!
           </p>
         </div>
+        <CreateTripForm />
         <TermsAndPolicies />
       </div>
     </main>
