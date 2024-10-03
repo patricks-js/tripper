@@ -9,6 +9,7 @@ import {
   Settings2,
   User,
   UserPlus,
+  X,
 } from "lucide-react";
 
 export const Icons = {
@@ -22,4 +23,5 @@ export const Icons = {
   plus: Plus,
   user: User,
   mail: Mail,
+  cross: X,
 };
