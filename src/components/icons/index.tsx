@@ -3,9 +3,11 @@ import {
   ArrowRight,
   AtSign,
   Calendar,
+  Mail,
   MapPin,
   Plus,
   Settings2,
+  User,
   UserPlus,
 } from "lucide-react";
 
@@ -18,4 +20,6 @@ export const Icons = {
   settings: Settings2,
   at: AtSign,
   plus: Plus,
+  user: User,
+  mail: Mail,
 };
