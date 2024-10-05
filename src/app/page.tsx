@@ -1,15 +1,11 @@
 import { CreateTripForm } from "@/components/create-trip-form";
-import { TermsAndPolicies } from "@/components/terms-and-policies";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="grid place-items-center bg-shape bg-center bg-no-repeat min-h-screen max-w-screen-lg mx-auto relative">
-      <Button variant="outline" asChild className="absolute top-14 right-0">
-        <Link href="/login">Entrar</Link>
-      </Button>
-      <div className="flex flex-col gap-10 items-center">
+    <div className="grid place-items-center bg-shape bg-center bg-no-repeat h-screen mx-auto relative">
+      <div className="flex flex-col gap-8 items-center">
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-3xl font-bold font-mono">Tripp.er</h1>
           <p className="text-sm max-w-md">
@@ -17,8 +13,21 @@ export default function Home() {
           </p>
         </div>
         <CreateTripForm />
-        <TermsAndPolicies />
+        <footer className="max-w-md">
+          <p className="text-center text-muted-foreground text-xs">
+            Ao planejar sua viagem pela tripp.er você automaticamente concorda
+            com nossos
+            <Button variant="link" className="px-1 text-xs" asChild>
+              <Link href="/">termos de uso</Link>
+            </Button>
+            e
+            <Button variant="link" className="pr-0.5 pl-1 text-xs" asChild>
+              <Link href="/">políticas de privacidade</Link>
+            </Button>
+            .
+          </p>
+        </footer>
       </div>
-    </main>
+    </div>
   );
 }
