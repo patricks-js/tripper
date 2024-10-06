@@ -1,8 +1,9 @@
 "use client";
 
 import { useTripStore } from "@/hooks/use-trip-store";
-import { formatDateRange } from "@/lib/format-date-range";
+import { cn } from "@/lib/cn";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { Icons } from "./icons";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
@@ -12,24 +13,29 @@ type Props = {
   disabled?: boolean;
 };
 
-export function TripDatePicker({ disabled }: Props) {
-  const { date, setDate } = useTripStore();
+export function DateRangePicker({ disabled }: Props) {
+  const { dateRange, setDateRange } = useTripStore();
 
   return (
     <div className="grid gap-2">
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            className="text-muted-foreground gap-2"
+            id="date"
             variant="ghost"
+            size="sm"
             disabled={disabled}
+            className={cn(!dateRange && "text-muted-foreground")}
           >
-            <Icons.calendar className="size-4 text-muted-foreground" />
-            {date?.from ? (
-              date.to ? (
-                <>{formatDateRange(date)}</>
+            <Icons.calendar className="mr-2 h-4 w-4" />
+            {dateRange?.from ? (
+              dateRange.to ? (
+                <>
+                  {format(dateRange.from, "LLL dd, y", { locale: ptBR })} -{" "}
+                  {format(dateRange.to, "LLL dd, y", { locale: ptBR })}
+                </>
               ) : (
-                format(date.from, "LLL dd, y")
+                format(dateRange.from, "LLL dd, y", { locale: ptBR })
               )
             ) : (
               <span>Quando?</span>
@@ -40,10 +46,11 @@ export function TripDatePicker({ disabled }: Props) {
           <Calendar
             initialFocus
             mode="range"
-            defaultMonth={date?.from}
-            selected={date}
-            onSelect={setDate}
+            defaultMonth={dateRange?.from}
+            selected={dateRange}
+            onSelect={setDateRange}
             numberOfMonths={2}
+            locale={ptBR}
           />
         </PopoverContent>
       </Popover>
