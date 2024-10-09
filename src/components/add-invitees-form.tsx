@@ -33,6 +33,7 @@ export function AddInviteesForm() {
 
   function onSubmit(data: FormData) {
     addInvitee(data.email);
+    form.reset();
   }
 
   return (
@@ -41,7 +42,9 @@ export function AddInviteesForm() {
         <div className="h-10 flex items-center gap-3 w-full cursor-pointer">
           <Icons.addUser className="size-4 text-muted-foreground" />
           {invitees.length > 0 ? (
-            <p className="text-sm">{invitees.length} convidados</p>
+            <p className="text-sm">
+              {invitees.length} convidado{invitees.length > 1 && "s"}
+            </p>
           ) : (
             <p className="text-sm text-muted-foreground">
               Quem vai estar na viagem?
