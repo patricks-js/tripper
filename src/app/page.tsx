@@ -1,4 +1,4 @@
-import { CreateTripForm } from "@/components/create-trip-form";
+import { CreateTrip } from "@/components/create-trip";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -12,7 +12,7 @@ export default function Home() {
             Convide seus amigos e planeje sua próxima viagem!
           </p>
         </div>
-        <CreateTripForm />
+        <CreateTrip />
         <footer className="max-w-md">
           <p className="text-center text-muted-foreground text-xs">
             Ao planejar sua viagem pela tripp.er você automaticamente concorda

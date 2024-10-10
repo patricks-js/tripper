@@ -32,7 +32,14 @@ export function ConfirmTripForm() {
   });
 
   function onSubmit(data: FormData) {
-    console.log(data, invitees, destination, dateRange);
+    const payload = {
+      destination,
+      dateRange,
+      invitees,
+      ...data,
+    };
+
+    console.log(payload);
   }
 
   return (

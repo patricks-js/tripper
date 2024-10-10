@@ -3,20 +3,20 @@ import { create } from "zustand";
 
 type TripStore = {
   destination: string;
-  dateRange: DateRange;
+  dateRange: DateRange | undefined;
   invitees: string[];
   setDestination: (destination: string) => void;
-  setDate: (date: DateRange) => void;
+  setDateRange: (date: DateRange | undefined) => void;
   addInvitee: (invitee: string) => void;
   removeInvitee: (invitee: string) => void;
 };
 
 export const useTripStore = create<TripStore>((set) => ({
   destination: "",
-  dateRange: { from: undefined, to: undefined },
+  dateRange: undefined,
   invitees: [],
   setDestination: (destination: string) => set({ destination }),
-  setDate: (dateRange: DateRange) => set({ dateRange }),
+  setDateRange: (dateRange: DateRange | undefined) => set({ dateRange }),
   addInvitee: (invitee: string) =>
     set((state) => ({
       invitees: [...state.invitees, invitee],
